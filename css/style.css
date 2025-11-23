@@ -1,0 +1,263 @@
+/* UTF-8 占い風テーマ */
+
+:root {
+  --astro-bg: radial-gradient(circle at top,
+              #3a1b6f 0,
+              #150826 40%,
+              #05010f 100%);
+  --astro-card-bg: rgba(18, 9, 38, 0.95);
+  --astro-card-alt: rgba(26, 12, 56, 0.95);
+  --astro-border-soft: rgba(255, 255, 255, 0.08);
+  --astro-text: #ffffff;
+  --astro-muted: #b9a5df;
+  --astro-primary: #e0b4ff;
+  --astro-primary-strong: #ff6fd8;
+}
+
+.astro-body {
+  background: var(--astro-bg);
+  color: var(--astro-text);
+  min-height: 100vh;
+}
+
+.astro-nav {
+  background: rgba(7, 3, 18, 0.92) !important;
+  backdrop-filter: blur(18px);
+}
+
+.astro-nav .nav-link {
+  color: var(--astro-muted) !important;
+}
+.astro-nav .nav-link:hover {
+  color: var(--astro-primary) !important;
+}
+
+.hero-img {
+  height: 420px;
+  object-fit: cover;
+}
+
+.carousel-caption h1,
+.carousel-caption h2 {
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+.astro-section {
+  padding: 4rem 0;
+}
+
+.astro-section-alt {
+  background: linear-gradient(
+    135deg,
+    rgba(96, 61, 139, 0.35),
+    rgba(17, 8, 40, 0.95)
+  );
+}
+
+.section-title {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.card-astro {
+  background: var(--astro-card-bg);
+  border: 1px solid var(--astro-border-soft);
+  border-radius: 1rem;
+  color: var(--astro-text);
+}
+
+.card-astro .card-title {
+  font-weight: 600;
+}
+
+.text-astro-muted {
+  color: var(--astro-muted);
+}
+
+.astro-thumb {
+  border-bottom: 1px solid var(--astro-border-soft);
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+.btn-astro-primary {
+  background-image: linear-gradient(
+    135deg,
+    var(--astro-primary),
+    var(--astro-primary-strong)
+  );
+  border: none;
+  color: #281231;
+  font-weight: 600;
+}
+
+.btn-astro-primary:hover {
+  filter: brightness(1.05);
+  color: #1a0b26;
+}
+
+.astro-footer {
+  background: rgba(7, 3, 18, 0.95);
+  color: var(--astro-muted);
+}
+
+body.subpage {
+  background: var(--astro-bg);
+  color: var(--astro-text);
+}
+
+.company-page {
+  color: #ffffff;
+}
+
+.company-page .card {
+  color: #ffffff;
+}
+
+.company-page a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.company-page a:hover {
+  color: var(--astro-primary);
+}
+
+.subpage .card {
+  background: var(--astro-card-bg);
+  border: 1px solid var(--astro-border-soft);
+  border-radius: 0.75rem;
+  color: var(--astro-text);
+}
+
+/* 文章页：确保正文与链接为白色以便在深色背景上可读 */
+.subpage a {
+  color: var(--astro-text);
+  text-decoration: underline;
+}
+
+.subpage a:hover {
+  color: var(--astro-primary);
+}
+
+/* 連絡先カード内の文字・リンクを白に */
+.contact-card p,
+.contact-card a {
+  color: #ffffff;
+}
+
+/* 返回按钮：和主题颜色更搭的描边按钮 */
+.btn-astro-ghost {
+  border-radius: 999px;
+  border: 1px solid rgba(224, 180, 255, 0.9);
+  color: #e0b4ff;
+  background: transparent;
+  font-size: 0.85rem;
+  padding-inline: 0.9rem;
+}
+
+.btn-astro-ghost:hover {
+  border-color: #ff6fd8;
+  color: #ff6fd8;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* 右上角返回按钮位置 */
+.back-top-right {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+}
+
+/* 文章详情页：1 上图下文，2 左图右文，3 右图左文 */
+.article-layout-top img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+.article-layout-left,
+.article-layout-right {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.article-layout-left .article-image-wrap,
+.article-layout-right .article-image-wrap {
+  flex: 0 0 25%;
+}
+
+.article-layout-left .article-image-wrap img,
+.article-layout-right .article-image-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+.article-layout-left .article-text-wrap,
+.article-layout-right .article-text-wrap {
+  flex: 1;
+}
+
+.article-layout-right {
+  flex-direction: row-reverse;
+}
+
+/* 手机时改为上下布局 */
+@media (max-width: 768px) {
+  .article-layout-left,
+  .article-layout-right {
+    flex-direction: column;
+  }
+
+  .article-layout-left .article-image-wrap,
+  .article-layout-right .article-image-wrap {
+    flex: 0 0 auto;
+  }
+}
+
+/* 手机小屏时，缩略图再小一点以节省空间 */
+@media (max-width: 576px) {
+  .astro-thumb {
+    height: 220px;
+  }
+}
+
+/* 移动端性能优化：禁用导航栏的 backdrop-filter，减少重绘卡顿 */
+@media (max-width: 768px) {
+  .astro-nav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    /* 更接近原有背景但避免昂贵的模糊绘制 */
+    background: rgba(7, 3, 18, 0.98) !important;
+  }
+  /* 提示浏览器优化展开动画（用于 .navbar-collapse 动画）*/
+  .navbar-collapse {
+    will-change: transform, opacity;
+  }
+}
+
+/* 有右上角返回按钮的容器，增加顶部内边距，避免内容被按钮压住 */
+.container.position-relative {
+  padding-top: 2.5rem;
+}
+
+/* 文章详情页：第一篇上方图片高度限制，避免页面比例过长 */
+.article-layout-top img {
+  max-height: 360px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+/* article.html：正文卡片整体往下移，避免被右上角返回按钮遮挡 */
+#article-detail {
+  margin-top: 2.5rem;
+}

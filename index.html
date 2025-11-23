@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ホーム - 群馬占卜</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="astro-body">
+
+  <!-- ナビバー -->
+  <nav class="navbar navbar-expand-lg navbar-dark astro-nav shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">群馬占卜</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#articles">記事</a></li>
+          <li class="nav-item"><a class="nav-link" href="articles.html">一覧</a></li>
+          <li class="nav-item"><a class="nav-link" href="company.html">会社情報</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">料金・お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 轮播图 -->
+  <header class="mb-5">
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+               data-src="images/hero1.jpg"
+               class="d-block w-100 hero-img lazy"
+               alt="メインビジュアル"
+               loading="lazy"
+               width="1200"
+               height="420">
+          <div class="carousel-caption d-none d-md-block text-start">
+            <h1 class="fw-bold">あなたの未来を占う</h1>
+            <p>人気占い師があなたのお悩みに寄り添います。</p>
+            <a href="#articles" class="btn btn-astro-primary btn-sm me-2">最新記事を見る</a>
+            <a href="contact.html" class="btn btn-outline-light btn-sm">料金を見る</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+               data-src="images/hero2.jpg"
+               class="d-block w-100 hero-img lazy"
+               alt="占いイメージ"
+               loading="lazy"
+               width="1200"
+               height="420">
+          <div class="carousel-caption d-none d-md-block text-start">
+            <h2 class="fw-bold">恋愛・仕事・人間関係</h2>
+            <p>どんなお悩みも、まずは一度ご相談ください。</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+               data-src="images/hero3.jpg"
+               class="d-block w-100 hero-img lazy"
+               alt="タロット"
+               loading="lazy"
+               width="1200"
+               height="420">
+          <div class="carousel-caption d-none d-md-block text-start">
+            <h2 class="fw-bold">タロット・霊感・西洋占星術</h2>
+            <p>あなたに合った占術で鑑定いたします。</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 最新記事（JSで生成） -->
+  <section id="articles" class="astro-section">
+    <div class="container">
+      <h2 class="section-title mb-4">最新の記事</h2>
+      <div id="latest-articles" class="row g-4">
+        <!-- JS で ARTICLES から生成 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 料金 + 連絡先 -->
+  <section id="contact" class="astro-section astro-section-alt">
+    <div class="container">
+      <h2 class="section-title mb-4">料金・連絡先</h2>
+      <div class="row g-4">
+        <div class="col-md-5">
+          <div class="card card-astro contact-card h-100 shadow-lg">
+            <div class="card-body">
+              <h5 class="mb-3">連絡先</h5>
+              <p><strong>電話：</strong>03-1234-5678</p>
+              <p><strong>Email：</strong><a href="mailto:info@example.com">info@example.com</a></p>
+              <p><strong>住所：</strong>群馬県前橋市〇〇1-2-3</p>
+              <p><strong>営業時間：</strong>10:00〜22:00（年中無休）</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="card card-astro shadow-lg">
+            <div class="card-body">
+              <h5 class="mb-3">料金プラン</h5>
+              <p class="text-astro-muted small mb-3">
+                ※ 表示価格はすべて税込です。初回の方にはお試しプランもご用意しています。
+              </p>
+              <div class="table-responsive">
+                <table class="table table-dark table-sm align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>プラン名</th>
+                      <th>時間</th>
+                      <th>料金</th>
+                      <th>内容</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ライト鑑定</td>
+                      <td>10分</td>
+                      <td>1,500円</td>
+                      <td>サクッと状況だけ知りたい方に。</td>
+                    </tr>
+                    <tr>
+                      <td>じっくり鑑定</td>
+                      <td>30分</td>
+                      <td>4,500円</td>
+                      <td>恋愛・仕事・人間関係など、じっくり相談。</td>
+                    </tr>
+                    <tr>
+                      <td>プレミア鑑定</td>
+                      <td>60分</td>
+                      <td>8,800円</td>
+                      <td>複数テーマをまとめて相談したい方向け。</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="small text-astro-muted mt-3 mb-0">
+                予約はお電話またはメールにて承っております。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4 astro-footer text-center">
+    <div class="container small">© 2025 群馬占卜</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>記事一覧 - 群馬占卜</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="subpage">
+
+<nav class="navbar navbar-expand-lg navbar-dark astro-nav shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">群馬占卜</a>
+  </div>
+</nav>
+
+<section class="container py-4 position-relative">
+  <!-- 右上角返回按钮 -->
+  <button class="btn btn-astro-ghost btn-sm back-top-right" onclick="goBack()">← 戻る</button>
+
+  <h1 class="section-title mb-4">記事一覧</h1>
+
+  <div id="article-list" class="card p-4">
+    <!-- JS で ARTICLES から生成 -->
+  </div>
+</section>
+
+<footer class="py-4 astro-footer text-center">
+  <div class="container small">© 2025 群馬占卜</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
