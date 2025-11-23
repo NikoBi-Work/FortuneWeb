@@ -1,10 +1,10 @@
 /* UTF-8 占い風テーマ */
 
 :root {
-  --astro-bg: radial-gradient(circle at top,
-              #3a1b6f 0,
-              #150826 40%,
-              #05010f 100%);
+  /* 更丰富的占卜风格渐变背景 */
+  --astro-bg: radial-gradient(circle at 10% 10%, rgba(63,22,106,0.95) 0%, rgba(21,8,38,0.92) 38%, rgba(5,1,15,1) 100%);
+  /* 星点 SVG 叠加（位于背景之上，内容之下） */
+  --astro-star-overlay: url('../images/stars-pattern.svg');
   --astro-card-bg: rgba(18, 9, 38, 0.95);
   --astro-card-alt: rgba(26, 12, 56, 0.95);
   --astro-border-soft: rgba(255, 255, 255, 0.08);
@@ -14,15 +14,241 @@
   --astro-primary-strong: #ff6fd8;
 }
 
+/* 统一日文字体与段落样式，提升可读性 */
+body, .astro-body, .subpage {
+  font-family: 'Noto Sans JP', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 标题统一样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* 公司/占卜师页面专用样式（居中、宽度限制、更好的可读性） */
+.company-page main .card {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.25rem;
+}
+
+/* 允许特定卡片扩展到容器宽度（用于算命師紹介与其他全宽板块） */
+.company-page main .card.wide-card {
+  max-width: none;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.company-page .card h4 {
+  font-size: 1.25rem;
+}
+
+.company-page figure img {
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+.company-page figcaption h5,
+.company-page figcaption h6 {
+  margin-bottom: .5rem;
+}
+
+/* Accordion / 折叠面板 样式优化 */
+.company-page .accordion-button {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: var(--astro-text);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: none;
+}
+.company-page .accordion-button:not(.collapsed) {
+  background: linear-gradient(90deg, rgba(224,180,255,0.06), rgba(160,110,255,0.03));
+}
+.company-page .accordion-body {
+  background: linear-gradient(180deg, rgba(18,9,38,0.72), rgba(26,12,56,0.6));
+  color: #e9e6ef;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* 当折叠项收起时，保持内部内容颜色与行高舒适 */
+.company-page .accordion-item {
+  border: 1px solid rgba(255,255,255,0.03);
+  background: transparent;
+}
+
+/* Profile card decorative style */
+.profile-card {
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.profile-accent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(90deg, rgba(224,180,255,0.08), rgba(160,110,255,0.03));
+}
+.profile-accent .accent-left {
+  width: 6px;
+  height: 36px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #ff9fe0, #8b5cf6);
+  box-shadow: 0 6px 18px rgba(139,92,246,0.12);
+}
+.profile-title { flex: 1; text-align: left; }
+.profile-name { font-weight: 800; font-size: 1.15rem; color: #fff; }
+.profile-role { font-size: 0.9rem; color: var(--astro-muted); }
+.profile-card .lead { color: #f2eefb; margin-bottom: 0.6rem; }
+
+.badge-astro {
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(224,180,255,0.12);
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid rgba(224,180,255,0.08);
+}
+
+/* 更细致的居中/宽度控制（保证与文章列表对齐） */
+.wide-card.text-center { text-align: center; }
+.wide-card .row { justify-content: center; }
+
+@media (max-width: 767px) {
+  .profile-accent { padding: 0.75rem 1rem; }
+  .profile-name { font-size: 1rem; }
+}
+
+.company-page p, .company-page li {
+  color: #e9e6ef;
+  font-size: 0.98rem;
+}
+
+/* 让卡片内段落间距更舒适 */
+.company-page p + p,
+.company-page h5 + p,
+.company-page h5 + ul {
+  margin-top: 0.6rem;
+}
+
+/* 小屏幕下调整图文顺序与内边距 */
+@media (max-width: 576px) {
+  .company-page main .card {
+    padding: 1.25rem;
+  }
+  .company-page figcaption h5 { font-size: 1rem; }
+}
+
 .astro-body {
   background: var(--astro-bg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--astro-text);
   min-height: 100vh;
+}
+
+/* 星点叠加层：使用 fixed 的伪元素，置于背景上方但页面内容之下 */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--astro-star-overlay), radial-gradient(circle at 80% 20%, rgba(255,110,245,0.06), transparent 30%), radial-gradient(circle at 10% 80%, rgba(160,110,255,0.04), transparent 30%);
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: 400px 300px, cover, cover;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 微闪动效：仅在桌面启用，且尊重系统减少动画偏好 */
+@media (min-width: 768px) {
+  @keyframes stars-twinkle-a {
+    0% { opacity: 0.12; transform: scale(1) translateZ(0); }
+    50% { opacity: 0.18; transform: scale(1.01) translateZ(0); }
+    100% { opacity: 0.13; transform: scale(1) translateZ(0); }
+  }
+
+  @keyframes stars-twinkle-b {
+    0% { opacity: 0.08; transform: translateY(0) translateZ(0); }
+    40% { opacity: 0.16; transform: translateY(-2px) translateZ(0); }
+    100% { opacity: 0.09; transform: translateY(0) translateZ(0); }
+  }
+
+  html::before {
+    animation: stars-twinkle-a 9s ease-in-out infinite alternate;
+  }
+
+  /* 额外的层通过伪元素产生不同节奏的闪烁，位置与大小不同以显得自然 */
+  html::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(circle at 15% 25%, rgba(255,255,255,0.06), transparent 6%), radial-gradient(circle at 65% 60%, rgba(255,255,255,0.05), transparent 6%), radial-gradient(circle at 85% 35%, rgba(255,255,255,0.04), transparent 6%);
+    background-repeat: no-repeat;
+    background-size: 1200px 900px;
+    opacity: 0.12;
+    mix-blend-mode: screen;
+    animation: stars-twinkle-b 11s ease-in-out infinite alternate;
+  }
+
+  /* 尊重减少动画偏好 */
+  @media (prefers-reduced-motion: reduce) {
+    html::before, html::after { animation: none !important; }
+  }
+}
+
+/* 确保主体内容位于叠加层之上 */
+body, .astro-body, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* 支持在特定页面将 footer 固定到底部：给 body 添加 `footer-fixed` 类即可 */
+:root {
+  --astro-footer-height: 72px; /* fallback，JS 会根据实际高度覆盖 */
+}
+.footer-fixed .astro-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  box-shadow: 0 -6px 30px rgba(0,0,0,0.4);
+}
+
+/* 若启用固定 footer，确保内容不会被遮挡（JS 会设置实际 padding-bottom） */
+.footer-fixed {
+  padding-bottom: var(--astro-footer-height);
 }
 
 .astro-nav {
   background: rgba(7, 3, 18, 0.92) !important;
   backdrop-filter: blur(18px);
+}
+
+/* 使导航在滚动时固定在页面顶部（固定定位，JS 会在加载时为 body 添加相应上边距） */
+.astro-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030; /* 高于内容但低于模态 */
 }
 
 .astro-nav .nav-link {
@@ -32,9 +258,49 @@
   color: var(--astro-primary) !important;
 }
 
+/* site logo sizing and brand alignment */
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.site-logo {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+}
+.brand-text {
+  font-weight: 700;
+  color: var(--astro-text);
+}
+
+/* 点击导航锚点跳转后目标区域的短暂高亮（提示注意） */
+.scroll-highlight {
+  box-shadow: 0 0 0 8px rgba(224, 180, 255, 0.12);
+  transition: box-shadow 0.35s ease-in-out;
+  border-radius: 0.5rem;
+}
+
 .hero-img {
-  height: 420px;
+  /* 占据视口高度的四分之一，同时设定最小和最大高度以兼容极端屏幕 */
+  height: 25vh;
+  min-height: 160px;
+  max-height: 420px;
   object-fit: cover;
+  width: 100%;
+}
+
+/* 让轮播与最新記事宽度一致并圆角显示 */
+#mainCarousel {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+#mainCarousel .carousel-item img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .carousel-caption h1,

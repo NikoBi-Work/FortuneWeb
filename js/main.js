@@ -122,6 +122,82 @@ function observeLazyImages() {
   }
 }
 
+// 加载共享导航栏组件（components/navbar.html）并插入到所有占位元素
+async function loadNavbar() {
+  const placeholders = document.querySelectorAll('.site-navbar');
+  if (!placeholders || placeholders.length === 0) return;
+  try {
+    const resp = await fetch('components/navbar.html');
+    if (!resp.ok) return;
+    const html = await resp.text();
+    placeholders.forEach(el => {
+      el.innerHTML = html;
+    });
+  } catch (err) {
+    console.error('loadNavbar error', err);
+    // 回退：在无法 fetch（例如 file:// 或服务器未启动）时，使用内置的 navbar HTML
+    const fallback = `
+      <nav class="navbar navbar-expand-lg navbar-dark astro-nav shadow-sm">
+        <div class="container">
+          <a class="navbar-brand fw-bold" href="index.html">
+            <img src="components/logo.svg" alt="群馬占卜 ロゴ" class="site-logo me-2">
+            <span class="brand-text">群馬占卜</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="index.html">ホーム</a></li>
+              <li class="nav-item"><a class="nav-link" href="articles.html">記事一覧</a></li>
+              <li class="nav-item"><a class="nav-link" href="company.html">占卜师情报</a></li>
+              <li class="nav-item"><a class="nav-link" href="contact.html">料金・お問い合わせ</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    `;
+    placeholders.forEach(el => el.innerHTML = fallback);
+  }
+}
+
+// 处理导航锚点的平滑滚动（考虑固定导航高度），并在目标处短暂高亮
+function setupAnchorScrolling() {
+  function scrollToId(id, smooth = true) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const nav = document.querySelector('.astro-nav');
+    const navHeight = nav ? nav.offsetHeight : 0;
+    const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 8; // 少量间距
+    window.scrollTo({ top: targetTop, behavior: smooth ? 'smooth' : 'auto' });
+    // 高亮目标，短暂展示
+    target.classList.add('scroll-highlight');
+    setTimeout(() => target.classList.remove('scroll-highlight'), 1400);
+  }
+
+  // 委托点击事件，拦截以 # 开头的 nav 链接
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a.nav-link[href^="#"]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    const id = href.slice(1);
+    const target = document.getElementById(id);
+    if (!target) return; // 若目标不存在，保留默认行为
+    e.preventDefault();
+    scrollToId(id, true);
+    // 更新地址栏的 hash（不会触发默认跳转行为）
+    history.replaceState(null, '', '#' + id);
+  });
+
+  // 页面载入时若有 hash，则滚动到带偏移的位置（非平滑以避免延迟）
+  if (location.hash) {
+    const id = location.hash.replace('#', '');
+    // 延迟执行，确保 DOM & navbar 已加载完毕
+    setTimeout(() => scrollToId(id, false), 50);
+  }
+}
+
 function initIndex() {
   const latestContainer = document.getElementById('latest-articles');
   if (!latestContainer) return;
@@ -245,8 +321,51 @@ function initArticleDetail() {
 }
 
 // 初始化
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadNavbar();
+  // 设置锚点平滑滚动/高亮（需要在 navbar 存在后设置）
+  setupAnchorScrolling();
   initIndex();
   initArticleList();
   initArticleDetail();
+  // 确保固定的头部/底部不会遮挡页面内容：根据实际高度设置 body 的 padding
+  function fixNavbarSpacing() {
+    // 导航栏（顶部）
+    const nav = document.querySelector('.astro-nav');
+    if (nav) {
+      const style = window.getComputedStyle(nav);
+      const h = nav.offsetHeight;
+      // 只有在导航被设置为 fixed 时，才需要为 body 添加等高内边距
+      if (style.position === 'fixed') {
+        document.body.style.paddingTop = h + 'px';
+      } else {
+        document.body.style.paddingTop = '';
+      }
+    }
+
+    // 页脚（底部）——当页面需要固定 footer 时，在 body 上添加 `footer-fixed` 类
+    const footer = document.querySelector('.astro-footer');
+    if (footer) {
+      const footerStyle = window.getComputedStyle(footer);
+      const shouldFixFooter = document.body.classList.contains('footer-fixed') || footerStyle.position === 'fixed';
+      if (shouldFixFooter) {
+        const fh = footer.offsetHeight;
+        document.body.style.paddingBottom = fh + 'px';
+        // 更新 CSS 变量作为备用显示值
+        document.documentElement.style.setProperty('--astro-footer-height', fh + 'px');
+      } else {
+        document.body.style.paddingBottom = '';
+        document.documentElement.style.removeProperty('--astro-footer-height');
+      }
+    }
+  }
+
+  // 初次设置
+  fixNavbarSpacing();
+  // 在窗口调整大小时重新设置（防抖）
+  let _resizeTimeout = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(_resizeTimeout);
+    _resizeTimeout = setTimeout(fixNavbarSpacing, 150);
+  });
 });
